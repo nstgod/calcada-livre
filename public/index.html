@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar barreira | Calçada Livre</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="container topo__conteudo">
+      <a class="marca" href="/"><span class="marca__icone" aria-hidden="true">♿</span> Calçada Livre</a>
+      <nav class="menu">
+        <a href="/" aria-current="page">Registrar</a>
+        <a href="/ocorrencias">Ocorrências e indicadores</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Introdução: problema, público-alvo, objetivo e ODS -->
+    <section class="hero">
+      <p class="hero__chamada">CitizenTech · Acessibilidade urbana</p>
+      <h1>Toda calçada deveria levar alguém a algum lugar.</h1>
+      <p class="hero__texto">
+        Buracos, falta de rampa, piso tátil quebrado e obstáculos transformam um trajeto simples
+        em risco para quem anda de cadeira de rodas, tem deficiência visual ou mobilidade reduzida.
+        O <strong>Calçada Livre</strong> permite que qualquer pessoa registre essas barreiras e
+        transforma os registros em indicadores para a prefeitura e as subprefeituras decidirem
+        onde agir primeiro.
+      </p>
+
+      <div class="intro">
+        <div class="intro__item">
+          <h2>Problema</h2>
+          <p>Barreiras físicas nas calçadas e travessias não são mapeadas de forma organizada, então os reparos não seguem nenhum critério de urgência.</p>
+        </div>
+        <div class="intro__item">
+          <h2>Público-alvo</h2>
+          <p>Pessoas com deficiência, idosos e pessoas com mobilidade reduzida (que se beneficiam); moradores que fazem o registro; gestores públicos que usam os dados.</p>
+        </div>
+        <div class="intro__item">
+          <h2>Objetivo</h2>
+          <p>Registrar barreiras com local, categoria e gravidade, classificar cada uma por prioridade e mostrar onde e quais problemas mais se repetem.</p>
+        </div>
+        <div class="intro__item intro__item--ods">
+          <h2>ODS relacionados</h2>
+          <p><strong>ODS 11</strong> Cidades e comunidades sustentáveis (metas 11.2 e 11.7: transporte e espaços públicos acessíveis).<br>
+             <strong>ODS 10</strong> Redução das desigualdades (meta 10.2: inclusão de todas as pessoas).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário: envia via POST para /ocorrencias -->
+    <section class="secao secao--estreita" id="registrar">
+      <h2>Registrar uma barreira</h2>
+      <p class="secao__intro">Todos os campos são obrigatórios, exceto a caixa de local sensível.</p>
+
+      <form class="formulario" method="POST" action="/ocorrencias">
+        <label for="categoria">Categoria da barreira</label>
+        <select id="categoria" name="categoria" required>
+          <option value="">Selecione...</option>
+          <option value="calcada-danificada">Calçada danificada ou esburacada</option>
+          <option value="falta-rampa">Falta de rampa de acesso</option>
+          <option value="piso-tatil">Piso tátil ausente ou danificado</option>
+          <option value="obstaculo">Obstáculo na calçada</option>
+          <option value="semaforo">Semáforo sem sinal sonoro</option>
+          <option value="transporte">Ponto de ônibus / transporte inacessível</option>
+          <option value="outro">Outro</option>
+        </select>
+
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" rows="4" minlength="10" maxlength="500" required
+          placeholder="Ex.: Calçada com buraco grande em frente ao número 120, cadeirantes precisam ir para a rua."></textarea>
+
+        <div class="formulario__linha">
+          <div>
+            <label for="endereco">Endereço ou referência</label>
+            <input id="endereco" name="endereco" type="text" minlength="5" maxlength="150" required
+              placeholder="Ex.: Rua Augusta, 1200">
+          </div>
+          <div>
+            <label for="bairro">Bairro</label>
+            <input id="bairro" name="bairro" type="text" minlength="2" maxlength="60" required
+              placeholder="Ex.: Consolação">
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Gravidade</legend>
+          <label class="opcao"><input type="radio" name="gravidade" value="leve" required> <span><strong>Leve</strong>: dificulta, mas dá para passar</span></label>
+          <label class="opcao"><input type="radio" name="gravidade" value="moderada"> <span><strong>Moderada</strong>: obriga a desviar ou pedir ajuda</span></label>
+          <label class="opcao"><input type="radio" name="gravidade" value="grave"> <span><strong>Grave</strong>: impede a passagem ou há risco de queda</span></label>
+        </fieldset>
+
+        <label for="publicoAfetado">Público mais afetado</label>
+        <select id="publicoAfetado" name="publicoAfetado" required>
+          <option value="">Selecione...</option>
+          <option value="cadeirantes">Pessoas em cadeira de rodas</option>
+          <option value="deficiencia-visual">Pessoas com deficiência visual</option>
+          <option value="idosos">Pessoas idosas</option>
+          <option value="mobilidade-reduzida">Mobilidade reduzida (gestantes, carrinhos, muletas)</option>
+          <option value="todos">Todos os pedestres</option>
+        </select>
+
+        <label class="opcao opcao--caixa">
+          <input type="checkbox" name="localSensivel">
+          <span>Fica perto de escola, hospital, UBS ou ponto de ônibus</span>
+        </label>
+
+        <button type="submit" class="botao">Registrar ocorrência</button>
+      </form>
+
+      <details class="regra">
+        <summary>Como a prioridade é calculada?</summary>
+        <p>O servidor soma pontos: gravidade <strong>leve = 1</strong>, <strong>moderada = 2</strong>, <strong>grave = 4</strong>,
+          e <strong>+2</strong> se a barreira fica perto de escola, hospital, UBS ou ponto de ônibus.</p>
+        <p><strong>4 pontos ou mais</strong>: prioridade alta · <strong>2 a 3</strong>: média · <strong>1</strong>: baixa.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">Calçada Livre · Global Solution 2026.2 · CitizenTech · ODS 11 e ODS 10<br>
+      Pedro Luis Tofoli (RM 564441) · Raphael Talarico Nascimento Silva (RM 565219) · Nelson Troccoli Santos Neto (RM 562815)</div>
+  </footer>
+</body>
+</html>
