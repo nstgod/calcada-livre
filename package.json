@@ -1,0 +1,22 @@
+{
+  "name": "calcada-livre",
+  "version": "1.0.0",
+  "description": "Calçada Livre - registro de barreiras de acessibilidade urbana (Global Solution 2026.2 - Application Development)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "citizentech",
+    "acessibilidade",
+    "express",
+    "mongodb"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.9.0"
+  }
+}
