@@ -10,7 +10,7 @@ Protótipo da Global Solution 2026.2 de Application Development (desafio Citizen
 | Raphael Talarico Nascimento Silva | 565219 |
 | Nelson Troccoli Santos Neto | 562815 |
 
-**Vídeo pitch:** _colar o link do YouTube aqui_
+**Vídeo pitch:** https://youtu.be/9OPieYJYFyA
 
 ## Problema
 
